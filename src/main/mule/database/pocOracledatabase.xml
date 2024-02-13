@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="OracleXE21c_selectoperation" doc:id="330cdc94-3e2a-4bad-9c83-369dd5c9ea03" >
+		<http:listener doc:name="Listener_6061" doc:id="06ebd64b-8691-4f0a-b38b-aa08e69a8db3" config-ref="HTTP_Listener_6061" path="/invokeoracleempinfo"/>
+		<db:select doc:name="OracleXE21c_selectoperation" doc:id="ab798039-ed2c-4cf5-a0ae-c570e94925a2" config-ref="Oracle_XE_21c">
+			<db:sql ><![CDATA[SELECT * FROM employeeinformation]]></db:sql>
+		</db:select>
+		<logger level="INFO" doc:name="LogDatabaseResult_convertoutputtopayload" doc:id="1f006931-c499-4a67-a75b-34c07dd0b935" message="#[%dw 2.0&#10;output application/json&#10;---&#10;Payload]"/>
+	</flow>
+</mule>

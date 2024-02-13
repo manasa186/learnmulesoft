@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="scopeconsFlow1" doc:id="17b59762-f8ee-4246-ab87-1a2c91efdea8" >
+	</flow>
+	<flow name="scopeconsFlow" doc:id="84af80f0-4a9d-4a0d-b0bc-034ecd6e66b1" >
+		<ee:transform doc:name="Docons" doc:id="6e6de239-738f-47f3-afed-0eb046525139" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/dw
+
+var Fname = "mule"
+var Lname = "soft"
+var x = do{
+	var concatenateFL = Fname ++ Lname
+	var x1 = "hi"
+	---
+	concatenateFL ++ x1
+}
+var x2 = Fname
+
+---
+Lname
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="else_ifexample1" doc:id="b6cc42f9-354b-4451-a778-8662ada66511" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  
+    k1:if(payload.age > 5 and payload.Id >=1)payload.name
+ 		
+ 	 else if(payload.age >=5 or payload.Id >=1)payload.location
+ 		
+ 	 else 
+ 	    
+           payload.salary
+
+
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="examp2" doc:id="c7925017-c715-4d69-a3db-8bdcf2190577">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+
+var myObject={
+	"myCountry":"India"
+}
+---
+if(myObject.myCountry=="India")myObject.myCountry
+else "invalid"]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="funct1Flow" doc:id="1342cbb9-dca9-41a3-8ad6-8d383dda72ca" >
+		<ee:transform doc:name="createafuncExamp1" doc:id="fa4b2669-da4a-4321-9b1a-e2c3be07185b" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+fun moduleAgeId(name,location,Id,age,salary)={
+	
+    k1:if(age > 5 and Id >=1)name
+ 	   else if(age >=5 or Id >=1)location
+ 	   else 
+ 	       salary
+}
+fun moduleAgeSalary(name,location,Id,age,salary)={
+	
+    k1:if(age > 5 and  salary<=100)name
+ 	   else if(age <=5 or salary>=10000)location
+ 	   else 
+ 	       salary
+ 	       
+}
+---
+{
+output1:moduleAgeId("manasa","india",1,12,100),
+output2:moduleAgeSalary("kamatam","USA",1,1200,10011)
+ 	       }]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

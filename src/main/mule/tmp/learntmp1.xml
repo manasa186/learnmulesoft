@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="learntmp1Flow" doc:id="cf1d386e-4cdb-4cab-ac14-d14128bce791" >
+		<http:listener doc:name="Listener" doc:id="e7a8a8eb-1c1b-493a-a569-be56c169ffec" config-ref="HTTP_Listener_6061" path="/learntmpmule1"/>
+		<ee:transform doc:name="extract Query Parameters" doc:id="fd65c857-92a2-4175-a691-9bdc07d51890" >
+			<ee:message >
+				<ee:set-attributes ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-attributes>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="extractFirstVar" ><![CDATA[attributes.queryParams[0]]]></ee:set-variable>
+				<ee:set-variable variableName="extractSecondValue" ><![CDATA[attributes.queryParams[1]]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Perform mathematical operations" doc:id="fa509673-66a7-4f9f-a815-ce6ea0d80869" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	
+	"add": vars.extractFirstValue  + vars.extractSecondValue,
+	"sub": vars.extractFirstValue  - vars.extractSecondValue,
+	"mul": vars.extractFirstValue  * vars.extractSecondValue,
+	"div": vars.extractFirstValue  / vars.extractSecondValue    
+	
+}
+]]></ee:set-payload>
+				<ee:set-attributes ><![CDATA[%dw 2.0
+output application/java
+---
+payload]]></ee:set-attributes>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="52721aac-0396-4cd0-bfc8-19350e26a098" message="#[payload]"/>
+	</flow>
+</mule>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="DWdatatypesFlow" doc:id="3a59f764-9267-481a-8c8f-35b42b7f10a1" >
+	</flow>
+	<flow name="DWdatatypesFlow1" doc:id="027f3940-03c1-4492-b43a-50a5a627cee6" >
+		<ee:transform doc:name="Transform Message" doc:id="5803d4ca-aa5b-4ac7-b2f7-d28f4f435501" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="basictypes" doc:id="a7bf1a68-9165-4880-9e02-e2bd16838107" >
+		<ee:transform doc:name="simple selector" doc:id="8e927a97-0372-42be-8716-b36e8b9401a2" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="Index-Range selector" doc:id="c11b43ba-cc87-4389-b351-8082279b53c5">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="multi_des_selector" doc:id="c9d9fad6-e7d5-4cea-b758-f8e47c246913" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload.."k4.3.2"]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="DWdatatypesFlow2" doc:id="4c6531ec-2cde-433a-9db5-38ea28cbcb0c" >
+		<ee:transform doc:name="prepend_append_remove Operators" doc:id="9a87ca81-753b-4543-aa99-26ba6d96f88a" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

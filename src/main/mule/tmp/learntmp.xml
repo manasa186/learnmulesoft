@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="learntmpFlow" doc:id="3134b8d4-55a2-4e6f-901e-1b068ecc3c33" >
+		<http:listener doc:name="Listener" doc:id="11ce8409-8106-4f17-a78f-cbf2f4efd9ed" config-ref="HTTP_Listener_6061" path="/learntmpmule">
+		</http:listener>
+		<ee:transform doc:name="Initialize variables" doc:id="9de07cbc-ba71-4665-ae02-5cfa065c1046" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="myFirstVar" ><![CDATA[10]]></ee:set-variable>
+				<ee:set-variable variableName="mySecondVar" ><![CDATA[20]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Complete math" doc:id="65cb86ad-92bd-4463-896f-0e900a162ec0" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="resaddvalue" ><![CDATA[vars.myFirstVar + vars.mySecondVar]]></ee:set-variable>
+				<ee:set-variable variableName="resmulvalue" ><![CDATA[vars.myFirstVar * vars.mySecondVar]]></ee:set-variable>
+				<ee:set-variable variableName="resdivvalue" ><![CDATA[vars.myFirstVar / vars.mySecondVar]]></ee:set-variable>
+				<ee:set-variable variableName="ressubvalue" ><![CDATA[vars.myFirstVar - vars.mySecondVar]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="setresultbacktopostman" doc:id="32f80c7c-9c10-400c-8e41-b92c8512bccb" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[  %dw 2.0
+  output application/json
+  ---
+  {
+  	"add":vars.resaddvalue,
+   	"mul":vars.resmulvalue,  
+	"div":vars.resdivvalue,
+ 	 "sub":vars.ressubvalue
+ }]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="DEBUG" doc:name="Loggeralloperations" doc:id="b12acab4-42d9-41e5-8144-428f6b332476" message='#["Addition of two variables is :  " ++ vars.resaddvalue ++&#10;"Multiplication  of two variables is  : " ++ vars.resmulvalue ++&#10;"Division of two variables is :  " ++ vars.resdivvalue ++&#10;"Subtraction of two variables is :  " ++ vars.ressubvalue ++&#10;payload]'/>
+	</flow>
+</mule>

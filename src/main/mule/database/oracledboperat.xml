@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/database" xmlns:http="http://www.mulesoft.org/schema/mule"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/database/current/mule-database.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="9138ead9-fb43-49ce-80f1-bd61510d2af9" >
+		<http:listener-connection host="0.0.0.0" port="6061" />
+	</http:listener-config>
+	<flow name="oracledboperatFlow" doc:id="f554c35f-15e0-43d9-a12a-a0343d9c9906" >
+		<http:listener doc:name="Listener" doc:id="7fc808dd-58d8-43ac-9130-9fa5d28b8699" config-ref="HTTP_Listener_6061" path="/postempinfo"/>
+		<logger level="INFO" doc:name="Logger" doc:id="ef57e47b-0ed8-4833-a66d-a7db61b4f68f" message="#[payload]"/>
+		<logger level="INFO" doc:name="Logger2" doc:id="75047876-d918-4e50-8935-1d81807430dc" message="#[payload]"/>
+	</flow>
+</mule>

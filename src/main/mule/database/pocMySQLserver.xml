@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+	<flow name="MySQLserver_selectoperation" doc:id="48ae5385-db81-4611-ac61-92b1076c374c" >
+		<http:listener doc:name="HTTPListener_mySQLserver" doc:id="67b8b121-06ed-436b-a614-d7cca0175d5e" config-ref="HTTP_Listener_6061" path="/invokemysqlstudentinformation" />
+		<db:select doc:name="MySQLserver_selectoperation" doc:id="323e5318-9c33-4126-a9a0-cb3fd2fe04ad" config-ref="MySQL_8.0.29" >
+			<db:sql ><![CDATA[SELECT * FROM learnmulesoft.studentinformation]]></db:sql>
+		</db:select>
+		<logger level="INFO" doc:name="LogDatabaseResult_convertoutputtopayload" doc:id="4a837302-b0dd-4bb9-9fbb-0baedb3b21a6" message="#[%dw 2.0&#10;output application/json&#10;---&#10;Payload]" />
+	</flow>
+</mule>

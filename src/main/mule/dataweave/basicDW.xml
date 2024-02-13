@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="basicDWFlow" doc:id="ca201734-562c-4bcb-9ab6-e4c3f4dbef7b" >
+		<ee:transform doc:name="Transform Message" doc:id="b5d3f985-90ce-4ac3-a8f6-3aa67912db51" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/dw
+//global variable
+ 
+var myname= "It is mule soft"
+var firstarray = [1,2,3,4,5,6]
+var CreateObject = {
+		
+	"object1":"Mule",
+	"Object2":"soft"
+	}
+---
+{
+	
+	"object3":CreateObject.object1,
+	"onject4":[firstarray[0]]<<7
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
